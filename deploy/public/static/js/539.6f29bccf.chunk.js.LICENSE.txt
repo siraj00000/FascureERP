@@ -1,0 +1,19 @@
+/*! Apply the style for chart */
+
+/*! Bind the Event handler */
+
+/*! Calculate column size */
+
+/*! Calculate row size */
+
+/*! Find the Events type */
+
+/*! Generate axis labels */
+
+/*! Generate axis range */
+
+/*! Set theme */
+
+/*! UnBind the Event handler */
+
+/*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */

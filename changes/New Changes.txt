@@ -1,0 +1,17 @@
+sale_order
+number sequence
+receive order add PO
+delivery note add address
+delivery note remove grand_total
+
+SO- timestamp, so_num, customer_name, grant_total
+
+remove slave 
+
+
+SO, Delivery, INV, Recept 
+SO ek option advance invoice bhi add krna ha
+PO, RO, Inventory
+
+Performa Invoice PI
+Final Invoice (POSTED)
