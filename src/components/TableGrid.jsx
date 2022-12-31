@@ -48,7 +48,7 @@ const TableGrid = (props) => {
                 props.focusedId === null ? "bg-gray-500" : "bg-greenfs"
               } rounded-lg px-2 text-gray-100 text-sm`}
             >
-              Invoice
+              Timeline
             </button>
             <button
               onClick={props.convertIntoPurchaseOrder}
@@ -58,6 +58,15 @@ const TableGrid = (props) => {
               } rounded-lg px-2 text-gray-100 text-sm`}
             >
               Purchase Order
+            </button>
+            <button
+              onClick={props.showTimeLine}
+              disabled={props.focusedId === null}
+              className={`${
+                props.focusedId === null ? "bg-gray-500" : "bg-greenfs"
+              } rounded-lg px-2 text-gray-100 text-sm`}
+            >
+              Detail
             </button>
           </div>
         )}

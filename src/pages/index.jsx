@@ -38,3 +38,5 @@ export { default as Login } from "./Auth/Login";
 export { default as Register } from "./Auth/Register";
 // Dashboard
 export { default as Dashboard } from "./Dashboard";
+// Detal templete that contain timeline
+export { default as DetailTemplate } from "../components/SOTimeline/Detail";

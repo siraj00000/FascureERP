@@ -1,0 +1,34 @@
+description in ReceiveOrder
+inventory separate 
+lotNumber/batchNumber, expiry_date add in Receive_Order
+inventory add linkedTo, lotNumber, expiry_date 
+
+
+Inventory=  {
+"lotNumber": 29382938, 
+"expiry_date": "12/12/2022",
+"linkedTo": 4, // either receive_order or delivery_order
+       "part_number": 700,
+       "serial": 7213231,
+       "quantity": 200,
+       "zone": 1200,
+       "aisle": 700,
+       "bay": 100,
+       "bin": 140
+	},
+
+
+500 order
+1000 P order
+600 receive
+500 d order
+
+150 order quantity
+100 stock
+100 del
+50 remainder
+50 del 
+0 remainder
+
+5 product pepsi 
+10 product 7up

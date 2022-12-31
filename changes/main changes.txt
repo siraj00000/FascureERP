@@ -1,0 +1,21 @@
+no need grandtotal in both Receive & Delivery Order
+
+receive order link with PO
+
+
+// changes
+Product --> serialized_item ==> boolean
+PO, SO add partnumber
+check warehouse API
+delivery_order add warehouse_id
+need the inventory data like warehouse_detail
+
+// warehouse_detail is inventory :note
+
+1) Receive Order
+2) Delivery Orders
+
+// Add barcode on DN
+partnumber
+serial_number
+

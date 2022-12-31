@@ -439,4 +439,64 @@ export const ISP_DYNAMIC_DATA = {
         },
         headerTags: ['so_num', 'total_without_vat', 'vat_total', 'date', 'due_date']
     },
-};
+    receive_order: {
+        type: "Receive Order",
+        dropdowns: {
+            variables: [
+                {
+                    name: 'ware_house_id',
+                    type: 'search',
+                    placeholder: 'search sale order..',
+                    label: 'Ware house*',
+                    required: true,
+                    url: '/api/ware_houses',
+                    searchby: 'name'
+                },
+            ]
+        },
+        inputs: {
+            variables: [
+                {
+                    name: 'signature',
+                    placeholder: 'any...',
+                    label: 'Signature*',
+                    required: true,
+                },
+                {
+                    name: 'part_number',
+                    placeholder: '40232..',
+                    label: 'Part Number*',
+                    required: true,
+                },
+                {
+                    name: 'serial_number',
+                    placeholder: '423..',
+                    label: 'Serial Number*',
+                    required: true,
+                },
+                {
+                    name: 'quantity',
+                    type: 'number',
+                    min: "1",
+                    placeholder: '40..',
+                    label: 'Quantity*',
+                    required: true,
+                },
+                {
+                    name: 'note',
+                    placeholder: 'add note..',
+                    label: 'Note*',
+                    required: true,
+                },
+            ]
+        },
+        schema: {
+            ware_house_id: 4,
+            signature: "",
+            part_number: "",
+            serial_number: "",
+            quantity: 0
+        },
+        endpoint: `/api/receive_orders`
+    }
+};;

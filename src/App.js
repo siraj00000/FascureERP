@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 import { MainSplash } from './components/Splash';
 import { useStateContext } from './context/ContextProvider';
+import NoInternetConnection from './pages/Others/NoInternetConnection';
 
 const { // Receiveables
   SalesOrder, Customers, Product, Invoice, DeliveryNote, Receipt, Slave, Supplier,
@@ -22,12 +23,19 @@ const { // Receiveables
   // Auth
   Login, Register,
   // Dashboard
-  Dashboard
+  Dashboard,
+  // SO Detail
+  DetailTemplate
 } = lazily(() => import('./pages'));
 
 
 const App = () => {
   const { token } = useStateContext();
+
+  if (!window.navigator.onLine) {
+    return <NoInternetConnection />;
+  }
+
   return (
     <Suspense fallback={<MainSplash />}>
       <BrowserRouter>
@@ -44,6 +52,7 @@ const App = () => {
 
             {/* Receiveables */}
             <Route path='/sales-order' element={<SalesOrder />} />
+            <Route path='/sales-order/detail' element={<DetailTemplate />} />
             <Route path='/customer' element={<Customers />} />
             <Route path='/product' element={<Product />} />
             <Route path='/invoice' element={<Invoice />} />

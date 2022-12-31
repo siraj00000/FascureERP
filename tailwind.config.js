@@ -21,6 +21,12 @@ module.exports = {
                 // 'greenfs': "#00bdae",
                 'greenfs': "#14a800",
                 'darkfs': "#404041",
+
+                'purplefs': "#701a75",
+                'primaryfs': "#0c4a6e",
+                'secondaryfs': "#0e7490",
+                'extrafs': "#0369a1",
+                'lightfs': "#a5f3fc"
             },
             colors: {
                 'bluefc': "#404041",
@@ -28,6 +34,11 @@ module.exports = {
                 // 'greenfs': "#00bdae",
                 'greenfs': "#14a800",
                 'darkfs': "#404041",
+
+                'primaryfs': "#0c4a6e",
+                'secondaryfs': "#0e7490",
+                'extrafs': "#0369a1",
+                'lightfs': "#cffafe"
             },
             borderWidth: {
                 1: '1px',

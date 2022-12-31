@@ -14,12 +14,16 @@ import Splash from "../Splash";
 import ViewTableGrid from "../ViewTableGrid";
 import ISPFormLayout from "../Forms/ISPFormLayout";
 import { ISP_DYNAMIC_DATA } from "../../utils/ISP.data";
+import SOTimeLine from "../SOTimeline";
+import { useNavigate } from "react-router-dom";
 
 const ISPLayout = ({ title, URL, dataType, pageGrid, moreDataKey, invpo }) => {
+  const navigate = useNavigate();
   const [isLoading, setLoading] = useState(false);
   const [focusedId, setFocusedId] = useState(null);
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
+  const [timeLine, setTimeLine] = useState(false);
   const [viewDetail, setViewDetail] = useState({
     visible: false,
     url: "",
@@ -100,11 +104,13 @@ const ISPLayout = ({ title, URL, dataType, pageGrid, moreDataKey, invpo }) => {
 
   // Convert Sales order to Invoice order
   const convertIntoInvoiceOrder = () => {
-    setViewDetail({
-      visible: true,
-      url: "/api/invoices",
-      type: "Invoice Order",
-    });
+    navigate("detail");
+    
+    // setViewDetail({
+    //   visible: true,
+    //   url: "/api/invoices",
+    //   type: "Invoice Order",
+    // });
   };
 
   // Convert Sales order to Purchase order
@@ -114,6 +120,10 @@ const ISPLayout = ({ title, URL, dataType, pageGrid, moreDataKey, invpo }) => {
       url: "/api/purchase_orders",
       type: "Purchase Order",
     });
+  };
+
+  const showSalesOrderTimeLine = () => {
+    setTimeLine(true);
   };
 
   if (collections.data.length >= 0) {
@@ -144,6 +154,7 @@ const ISPLayout = ({ title, URL, dataType, pageGrid, moreDataKey, invpo }) => {
               invpo={invpo}
               convertIntoInvoiceOrder={convertIntoInvoiceOrder}
               convertIntoPurchaseOrder={convertIntoPurchaseOrder}
+              showTimeLine={showSalesOrderTimeLine}
             />
             <Pagination {...collections} setPage={setPage} page={page} />
           </>
@@ -182,6 +193,11 @@ const ISPLayout = ({ title, URL, dataType, pageGrid, moreDataKey, invpo }) => {
             type={viewDetail.type}
             onClose={setViewDetail}
           />
+        </Modal>
+      )}
+      {timeLine && (
+        <Modal mxw={true}>
+          <SOTimeLine focusedId={focusedId} />
         </Modal>
       )}
     </React.Fragment>
