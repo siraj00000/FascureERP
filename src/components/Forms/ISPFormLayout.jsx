@@ -174,14 +174,14 @@ const ISPFormLayout = (props) => {
 
       let unitPriceWithDiscount = element.unit_price - percent;
 
-      total_without_vat += unitPriceWithDiscount * element?.quantity;
+      total_without_vat += unitPriceWithDiscount * Number(element?.quantity);
       // vat amount
       total_vat +=
         unitPriceWithDiscount *
         (element?.vat_percentage / 100) *
-        element?.quantity;
+        Number(element?.quantity);
 
-      no_of_quantity += element?.quantity;
+      no_of_quantity += Number(element?.quantity);
     });
 
     let grand_total = total_without_vat + total_vat;
@@ -253,7 +253,7 @@ const ISPFormLayout = (props) => {
     <div className="p-5 min-h-[590] w-full overflow-hidden">
       <div className="flex justify-between">
         <h1 className="font-bold text-xl uppercase text-right mb-5">
-          {props.type} Form
+          {props.type} Form100
         </h1>
         <AiOutlineClose
           size={30}

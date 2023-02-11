@@ -406,25 +406,17 @@ export const PRODUCT_FORM = [
     },
     {
         name: 'part_number',
-        type: 'number',
-        min: "1",
-        placeholder: '121..',
+        placeholder: 'ab2342',
         label: 'Part Number*',
         required: true,
     },
     {
         name: 'serialized_item',
         type: 'number',
-        min: "1",
-        placeholder: '12..',
+        max: "1",
+        min: '0',
+        placeholder: '0 or 1..',
         label: 'Serialized Item*',
-        required: true,
-    },
-    {
-        name: 'category',
-        type: 'text',
-        placeholder: 't31..',
-        label: 'Category*',
         required: true,
     },
     {
@@ -1121,7 +1113,7 @@ export const UNIT_FORM = [
         label: 'Description*',
         required: true,
     }
-]
+];
 
 // AUTH FORM
 export const LOGIN_FORM = [

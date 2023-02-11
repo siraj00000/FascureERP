@@ -50,24 +50,6 @@ const TableGrid = (props) => {
             >
               Timeline
             </button>
-            <button
-              onClick={props.convertIntoPurchaseOrder}
-              disabled={props.focusedId === null}
-              className={`${
-                props.focusedId === null ? "bg-gray-500" : "bg-greenfs"
-              } rounded-lg px-2 text-gray-100 text-sm`}
-            >
-              Purchase Order
-            </button>
-            <button
-              onClick={props.showTimeLine}
-              disabled={props.focusedId === null}
-              className={`${
-                props.focusedId === null ? "bg-gray-500" : "bg-greenfs"
-              } rounded-lg px-2 text-gray-100 text-sm`}
-            >
-              Detail
-            </button>
           </div>
         )}
         <Searchbar func={props.doSearch} value={props.searching} />

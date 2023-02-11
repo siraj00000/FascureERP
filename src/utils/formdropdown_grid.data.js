@@ -298,6 +298,23 @@ export const RECEIVE_ORDER_DROPDOWNS = [
     }
 ];
 
+export const PRODUCT_DROPDOWNS = [
+    {
+        name: 'category',
+        label: 'Category*',
+        required: true,
+        url: '/api/categories',
+        searchby: 'name'
+    },
+    {
+        name: 'unit_type_id',
+        label: 'Unit Type*',
+        required: true,
+        url: '/api/unit_types',
+        searchby: 'name'
+    },
+];
+
 export const COMPANY_SETTINGS_DROPDOWNS = [
     {
         name: 'currency_id',

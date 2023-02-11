@@ -32,3 +32,52 @@ Inventory=  {
 
 5 product pepsi 
 10 product 7up
+
+
+----------------------Timeline Structure and Logic-----------------------
+
+1) SO -----create------> User <Form>
+2) PO -----convert-----> if SO <id> ---> User <Button>
+3) RO -----create------> if PO <id> ---> User <Form>
+ * <Form>
+	<constants>
+	<products> --fetch PO <prod_id>--> PO 
+   <Form>
+4) Inventory -----insert RO's product ----> RO status
+5) DO -----create------> if SO <id> & Inventory -----search-----> Inventory <linked_to_id>
+6) INV -----convert-----> if SO <id>
+7) Receipt -----create-----> if INV <id>
+
+
+
+// ---------------------------
+[
+   {
+      ware_house_id: 1,
+      linked_to_id: X /// galat ha isko - linked_to: 'RO' or 'DO' rhy ga,
+      lot_number: 1231212,
+      expiry_date: 22/22/22,
+      part_number: 121212,
+      serial: 121212,
+      quantity: 1,
+      zone: av,
+      aisle: "",
+      bay: "",
+      bin: "",
+      comments: ""
+   },
+   {
+      ware_house_id: 2,
+      linked_to: 'RO' or 'DO',
+      lot_number: 1231212,
+      expiry_date: 22/22/22,
+      part_number: 121212,
+      serial: 121212,
+      quantity: 1,
+      zone: av,
+      aisle: "",
+      bay: "",
+      bin: "",
+      comments: ""
+   }
+]

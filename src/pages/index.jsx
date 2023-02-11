@@ -40,3 +40,5 @@ export { default as Register } from "./Auth/Register";
 export { default as Dashboard } from "./Dashboard";
 // Detal templete that contain timeline
 export { default as DetailTemplate } from "../components/SOTimeline/Detail";
+// NEW Changes Order flow
+export { default as OrderFlow } from "./OrderFlow";

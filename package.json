@@ -3,6 +3,7 @@
   "homepage": "https://front.einvoice-ksa.com/",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://test.einvoice-ksa.com",
   "dependencies": {
     "@headlessui/react": "^1.7.4",
     "@heroicons/react": "^2.0.13",

@@ -41,7 +41,7 @@ export const ISP_DYNAMIC_DATA = {
                     label: 'VAT*',
                     required: true,
                     url: '/api/vats',
-                    searchby: 'name',
+                    searchby: 'percentage',
                     method: "selectVat"
                 },
             ]
@@ -450,7 +450,8 @@ export const ISP_DYNAMIC_DATA = {
                     label: 'Ware house*',
                     required: true,
                     url: '/api/ware_houses',
-                    searchby: 'name'
+                    searchby: 'name',
+                    w_size: 'w-[49%]'
                 },
             ]
         },
@@ -461,42 +462,227 @@ export const ISP_DYNAMIC_DATA = {
                     placeholder: 'any...',
                     label: 'Signature*',
                     required: true,
-                },
-                {
-                    name: 'part_number',
-                    placeholder: '40232..',
-                    label: 'Part Number*',
-                    required: true,
-                },
-                {
-                    name: 'serial_number',
-                    placeholder: '423..',
-                    label: 'Serial Number*',
-                    required: true,
-                },
-                {
-                    name: 'quantity',
-                    type: 'number',
-                    min: "1",
-                    placeholder: '40..',
-                    label: 'Quantity*',
-                    required: true,
+                    w_size: 'w-[49%]'
                 },
                 {
                     name: 'note',
                     placeholder: 'add note..',
                     label: 'Note*',
                     required: true,
+                    w_size: 'w-full'
+                },
+                {
+                    name: 'description',
+                    placeholder: 'add description..',
+                    label: 'Description*',
+                    required: true,
+                    w_size: 'w-full'
                 },
             ]
         },
         schema: {
-            ware_house_id: 4,
+            ware_house_id: "",
             signature: "",
-            part_number: "",
-            serial_number: "",
-            quantity: 0
+            description: "",
+            note: ""
         },
-        endpoint: `/api/receive_orders`
+        endpoint: `/api/receive_orders`,
+        product_modal: {
+            inputs: [
+                {
+                    name: 'serial_number',
+                    placeholder: 'abc12...',
+                    label: 'Serial Number*',
+                    required: true,
+                },
+                {
+                    name: 'lot_number',
+                    placeholder: 'any...',
+                    label: 'Lot number*',
+                    required: true,
+                },
+                {
+                    name: 'zone',
+                    placeholder: '...',
+                    label: 'Zone',
+                },
+                {
+                    name: 'aisle',
+                    placeholder: '...',
+                    label: 'Aisle',
+                },
+                {
+                    name: 'bay',
+                    placeholder: '...',
+                    label: 'Bay',
+                },
+                {
+                    name: 'bin',
+                    placeholder: '...',
+                    label: 'Bay',
+                },
+                {
+                    name: 'comments',
+                    placeholder: '...',
+                    label: 'Comments'
+                },
+                {
+                    name: 'expiry_date',
+                    type: 'date',
+                    label: 'Expiry date*',
+                    required: true,
+                },
+            ],
+            input_ns: [
+                {
+                    name: 'lot_number',
+                    placeholder: 'any...',
+                    label: 'Lot number*',
+                    required: true,
+                },
+                {
+                    name: 'zone',
+                    placeholder: '...',
+                    label: 'Zone',
+                },
+                {
+                    name: 'aisle',
+                    placeholder: '...',
+                    label: 'Aisle',
+                },
+                {
+                    name: 'bay',
+                    placeholder: '...',
+                    label: 'Bay',
+                },
+                {
+                    name: 'bin',
+                    placeholder: '...',
+                    label: 'Bay',
+                },
+                {
+                    name: 'comments',
+                    placeholder: '...',
+                    label: 'Comments'
+                },
+                {
+                    name: 'expiry_date',
+                    type: 'date',
+                    label: 'Expiry date*',
+                    required: true,
+                },
+            ],
+            schema: {
+                linked_to: "receive_order",
+                ware_house_id: 1,
+                serial_number: "",
+                lot_number: "",
+                expiry_date: "",
+                zone: "",
+                aisle: "",
+                bin: "",
+                bay: "",
+                comments: "",
+            }
+        }
+    },
+    cash_receipt: {
+        type: "Receipt",
+        dropdowns: [
+            {
+                name: 'payment_term_id',
+                type: 'search',
+                placeholder: 'payment term..',
+                label: 'Payments Term*',
+                required: true,
+                url: '/api/payment_terms',
+                searchby: 'type',
+            },
+            {
+                name: 'vat_id',
+                type: 'search',
+                placeholder: 'search vat..',
+                label: 'VAT*',
+                required: true,
+                url: '/api/vats',
+                searchby: 'percentage',
+            },
+        ],
+        inputs: [
+            {
+                name: 'amount',
+                placeholder: '120..',
+                label: 'Amount*',
+                required: true,
+            },
+            {
+                name: 'note',
+                placeholder: 'add note..',
+                label: 'Note*',
+                required: true,
+                w_size: 'w-full'
+            },
+            {
+                name: 'description',
+                placeholder: 'add description..',
+                label: 'Description*',
+                required: true,
+                w_size: 'w-full'
+            },
+        ],
+        schema: {
+            customer_id: "",
+            invoice_id: "",
+            language_id: 2,
+            vat_id: "",
+            payment_term_id: "",
+            amount: "",
+            note: "",
+        }
+    },
+    delivery_order: {
+        type: "Delivery Order",
+        dropdowns: [
+            {
+                name: 'warehouse_id',
+                type: 'search',
+                placeholder: 'warehouse..',
+                label: 'Ware House*',
+                required: true,
+                url: '/api/ware_houses',
+                searchby: 'name',
+            }
+        ],
+        inputs: [
+            {
+                name: 'signature',
+                placeholder: 'any...',
+                label: 'Signature*',
+                required: true,
+                w_size: 'w-[49%]'
+            },
+            {
+                name: 'note',
+                placeholder: 'add note..',
+                label: 'Note*',
+                required: true,
+                w_size: 'w-full'
+            },
+            {
+                name: 'description',
+                placeholder: 'add description..',
+                label: 'Description*',
+                required: true,
+                w_size: 'w-full'
+            },
+        ],
+        schema: {
+            sale_order_id: "",
+            address_id: "",
+            warehouse_id: "",
+            note: "",
+            signature: "",
+            deliveryOrder: []
+        }
     }
-};;
+};

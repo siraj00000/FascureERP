@@ -46,18 +46,25 @@ const ISPLayout = ({ title, URL, dataType, pageGrid, moreDataKey, invpo }) => {
   }, []);
 
   useEffect(() => {
+    let isMounted = true;
     // Fetching data throw axios
     let fetchURL = URL + `?page=${page}&search=${search}`;
     handleFetchAction(fetchURL).then((res) => {
-      let _data = res?.data;
-      setCollections({
-        data: _data.data,
-        from: _data.from,
-        to: _data.to,
-        lastPage: _data.last_page,
-        total: _data.total,
-      });
+      if (isMounted) {
+        let _data = res?.data;
+        setCollections({
+          data: _data.data,
+          from: _data.from,
+          to: _data.to,
+          lastPage: _data.last_page,
+          total: _data.total,
+        });
+      }
     });
+
+    return () => {
+      isMounted = false;
+    };
   }, [search, URL, isLoading, page]);
 
   // COLLECTION
@@ -103,14 +110,8 @@ const ISPLayout = ({ title, URL, dataType, pageGrid, moreDataKey, invpo }) => {
   };
 
   // Convert Sales order to Invoice order
-  const convertIntoInvoiceOrder = () => {
-    navigate("detail");
-    
-    // setViewDetail({
-    //   visible: true,
-    //   url: "/api/invoices",
-    //   type: "Invoice Order",
-    // });
+  const convertIntoInvoiceOrder = async () => {
+    navigate("order-flow", { state: focusedId });
   };
 
   // Convert Sales order to Purchase order

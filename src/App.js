@@ -25,7 +25,10 @@ const { // Receiveables
   // Dashboard
   Dashboard,
   // SO Detail
-  DetailTemplate
+  DetailTemplate,
+  //! New Changes
+  // Order Flow
+  OrderFlow
 } = lazily(() => import('./pages'));
 
 
@@ -52,6 +55,7 @@ const App = () => {
 
             {/* Receiveables */}
             <Route path='/sales-order' element={<SalesOrder />} />
+            <Route path='/sales-order/order-flow' element={<OrderFlow />} />
             <Route path='/sales-order/detail' element={<DetailTemplate />} />
             <Route path='/customer' element={<Customers />} />
             <Route path='/product' element={<Product />} />
@@ -87,6 +91,9 @@ const App = () => {
             <Route path='/term-applied' element={<TermApplied />} />
             <Route path='/unit-type' element={<UnitType />} />
             <Route path='/unit' element={<Unit />} />
+
+            {/* Order Flow */}
+            <Route path='/order-flow' element={<OrderFlow />} />
           </Route>
 
           <Route path='/login' element={PrivateRoute(!token, <Login />, "/")} />

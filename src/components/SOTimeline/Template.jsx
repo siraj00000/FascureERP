@@ -48,8 +48,8 @@ const Template = ({ info, type, nodeKey }) => {
               <tr className="text-xs px-2">
                 <th className="text-left pl-2">Product</th>
                 <th colSpan={3}>Description</th>
-                <th>Vat%</th>
                 <th>Qty</th>
+                <th>Vat%</th>
                 <th>Unit Price</th>
                 <th>Vat Amt</th>
                 <th>Line Total</th>

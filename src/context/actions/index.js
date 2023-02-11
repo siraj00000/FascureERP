@@ -7,7 +7,7 @@ export const handleFetchAction = (url) => {
                 method: "GET",
                 url,
                 headers: {
-                    "Content-Type": "application/json",
+                    "Content-Type": "application/json"
                 }
             });
             resolve(response);
