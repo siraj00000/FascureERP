@@ -1,73 +1,52 @@
-// import React, { useEffect, useState } from "react";
-import PurchaseOrder from "./PurchaseOrder";
-import RoForms from "./ReceiveOrder/RoForms";
-import SalesOrder from "./SalesOrder";
-import DeliveryNote from "./DeliveryNote";
-import Invoice from "./Invoice";
-import Receipt from "./Receipt";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import InvoiceOrder from "./Invoice/ViewInvoiceOrder";
-// import { useMemo } from "react";
 import { handleFetchAction } from "../../context/actions";
-
-const _mock_ = {
-  "po order": {
-    success: true,
-    message: "sale order id exist!",
-    po_id: 3,
-  },
-  invoice: {
-    success: false,
-    error: "sale order id does not exist!",
-  },
-};
+import Splash from "../../components/Splash";
+import TimeLine from "./OrdersProgress/TimeLine";
 
 const OrderFlow = () => {
   let navigate = useNavigate();
   const { state: so_id } = useLocation();
+  const [progress, setProgress] = useState(null);
+
   useEffect(() => {
     if (so_id === null) navigate("/sales-order"); // -1 use to goback to previous route
+    let isMounted = true;
 
-    const checkOrderProgress = async () => {
-      const response = await handleFetchAction(
-        `api/get/po-invoice-by-sale-order-id/?sale_order_id=${so_id}`
-      );
+    const getOrderProgress = async () => {
+      try {
+        const response = await handleFetchAction(
+          `http://localhost:3000/api/get/po-invoice-by-sale-order-id/?sale_order_id=${so_id}`
+        );
 
-      console.log(response);
+        if (isMounted) {
+          setProgress(response.data);
+        }
+      } catch (error) {
+        if (error.response.status === 400) {
+          setProgress(error.response.data);
+          return;
+        }
+        console.log(error);
+      }
     };
-    checkOrderProgress();
+
+    getOrderProgress();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
+  let isLoading = progress === null;
+
+  let data = { so_id, progress };
+  console.log(so_id);
   return (
     <main className="p-10">
-      <section className="rounded-3xl bg-white p-5">
-        <h1 className="text-3xl">Order Flow</h1>
-        <div className="flex items-center my-5 rounded-3xl bg-gray-200 p-5">
-          <SalesOrder id={so_id} />
-          <PurchaseOrder id={so_id} />
-          <RoForms id={2} attribute={"receive_order"} />
-          <DeliveryNote id={so_id} />
-          <Invoice id={so_id} />
-          <InvoiceOrder id={40} />
-          <Receipt id={1} />
-        </div>
-      </section>
+      {isLoading ? <Splash /> : <TimeLine data={data} />}
     </main>
   );
 };
 
-export default OrderFlow;
-
-// let { state: sales_order_id } = useLocation();
-// const [timeLine, setTimeLine] = useState();
-// console.log(sales_order_id);
-// useEffect(() => {
-//   const checkSalesOrderTimeline = async () => {
-//     const response = await handleFetchAction(
-//       `/api/get/po-invoice-by-sale-order-id/?sale_order_id=${sales_order_id}`
-//     );
-//     console.log(response.data);
-//   };
-//   checkSalesOrderTimeline();
-// }, []);
+export default React.memo(OrderFlow);

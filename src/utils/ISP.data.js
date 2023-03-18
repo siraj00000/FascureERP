@@ -85,8 +85,8 @@ export const ISP_DYNAMIC_DATA = {
             name: 'reference_number',
             type: 'text',
             placeholder: '#23232..',
-            label: 'Ref No.*',
-            required: true,
+            label: 'Ref No.',
+            required: false,
         },
         dateFromTo: [
             {
@@ -191,8 +191,19 @@ export const ISP_DYNAMIC_DATA = {
                     label: 'VAT*',
                     required: true,
                     url: '/api/vats',
-                    searchby: 'name',
+                    searchby: 'percentage',
                     method: "selectVat"
+                },
+            ],
+            timelineFormInput: [
+                {
+                    name: 'supplier_id',
+                    type: 'search',
+                    placeholder: 'search supplier..',
+                    label: 'Supplier*',
+                    required: true,
+                    url: '/api/suppliers',
+                    searchby: 'name'
                 },
             ]
         },
@@ -281,8 +292,31 @@ export const ISP_DYNAMIC_DATA = {
                 vat_amount: "",
                 line_total: "",
                 description: ''
-            }
+            },
         },
+        existingMasterData: [
+            {
+                label: "Supplier",
+                name: 'supplier',
+                child: 'name',
+                childNode: true,
+                style: 'w-[49%]'
+            },
+            {
+                label: "Ref No.",
+                name: 'reference_number',
+                child: '',
+                childNode: false,
+                style: 'w-[49%]'
+            },
+            {
+                label: "Address",
+                name: 'address',
+                child: '',
+                childNode: false,
+                style: 'w-full'
+            },
+        ],
         headerTags: ['po_num', 'total_without_vat', 'vat_total', 'date', 'due_date']
     },
     invoice_order: {
@@ -460,8 +494,8 @@ export const ISP_DYNAMIC_DATA = {
                 {
                     name: 'signature',
                     placeholder: 'any...',
-                    label: 'Signature*',
-                    required: true,
+                    label: 'Signature',
+                    required: false,
                     w_size: 'w-[49%]'
                 },
                 {
@@ -470,14 +504,7 @@ export const ISP_DYNAMIC_DATA = {
                     label: 'Note*',
                     required: true,
                     w_size: 'w-full'
-                },
-                {
-                    name: 'description',
-                    placeholder: 'add description..',
-                    label: 'Description*',
-                    required: true,
-                    w_size: 'w-full'
-                },
+                }
             ]
         },
         schema: {
@@ -621,14 +648,7 @@ export const ISP_DYNAMIC_DATA = {
                 label: 'Note*',
                 required: true,
                 w_size: 'w-full'
-            },
-            {
-                name: 'description',
-                placeholder: 'add description..',
-                label: 'Description*',
-                required: true,
-                w_size: 'w-full'
-            },
+            }
         ],
         schema: {
             customer_id: "",
@@ -657,22 +677,15 @@ export const ISP_DYNAMIC_DATA = {
             {
                 name: 'signature',
                 placeholder: 'any...',
-                label: 'Signature*',
-                required: true,
+                label: 'Signature',
+                required: false,
                 w_size: 'w-[49%]'
             },
             {
                 name: 'note',
                 placeholder: 'add note..',
-                label: 'Note*',
-                required: true,
-                w_size: 'w-full'
-            },
-            {
-                name: 'description',
-                placeholder: 'add description..',
-                label: 'Description*',
-                required: true,
+                label: 'Note',
+                required: false,
                 w_size: 'w-full'
             },
         ],

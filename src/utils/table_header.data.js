@@ -1,4 +1,4 @@
-export const CURRENCY_GRID = ['name', 'symbol', 'code', 'created_at', 'updated_at'];
+export const CURRENCY_GRID = ['name','symbol', 'code', 'value', 'status', 'created_at', 'updated_at'];
 export const ADDRESS_GRID = ['name', 'type', 'location', 'description', 'city', 'phone_number', 'created_at', 'updated_at'];
 export const PAYMENT_TERM_GRID = ['type', 'days', 'created_at', 'updated_at'];
 export const PAYMENT_METHOD_GRID = ['name', 'description', 'note', 'created_at', 'updated_at'];

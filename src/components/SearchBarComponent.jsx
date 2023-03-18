@@ -8,25 +8,27 @@ const SearchBarComponent = (props) => {
   const [focused, setFocused] = useState(false);
   const { label, ...inputProps } = props;
 
-  useEffect(async () => {
+  useEffect(() => {
     let isMounted = true;
-    try {
-      if (inputProps?.name === "address_id" && props.externaldata) {
-        if (isMounted) {
+    const fetchData = async () => {
+      try {
+        if (inputProps?.name === "address_id" && props.externaldata) {
           setItemList(props.externaldata);
+          return;
         }
-        return;
-      }
-      let URL = inputProps.url + `?search=${search}`;
-      const response = await handleFetchAction(URL);
+        let URL = inputProps.url + `?search=${search}`;
+        const response = await handleFetchAction(URL);
 
-      if (isMounted) {
         setItemList(response?.data?.data);
+      } catch (error) {
+        let errorMessage = error?.response?.data;
+        if (errorMessage.message === "")
+          props.setstatus({ msg: "Request Failed !!", type: "error" });
       }
-    } catch (error) {
-      let errorMessage = error?.response?.data;
-      if (errorMessage.message === "")
-        props.setstatus({ msg: "Request Failed !!", type: "error" });
+    };
+
+    if (isMounted) {
+      fetchData();
     }
 
     return () => (isMounted = false);
@@ -81,4 +83,4 @@ const SearchBarComponent = (props) => {
   );
 };
 
-export default SearchBarComponent;
+export default React.memo(SearchBarComponent);

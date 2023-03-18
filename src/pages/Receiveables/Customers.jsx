@@ -4,8 +4,11 @@ import { CUSTOMER_DROPDOWN } from "../../utils/formdropdown_grid.data";
 import { CUSTOMER_FORM } from "../../utils/form_grid.data";
 import { CUSTOMER_SCHEMA } from "../../utils/states.values";
 import { CUSTOMER_GRID } from "../../utils/table_header.data";
+import { useStateContext } from "../../context/ContextProvider";
 
 const Customer = () => {
+  const { permissions } = useStateContext();
+  console.log(permissions);
   return (
     <PageLayout
       title={"Customer"}

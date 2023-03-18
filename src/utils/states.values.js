@@ -106,7 +106,6 @@ export const COMPANY_SETTINGS_SCHEMA = {
     cr_number: "",
     vat_number: "",
     address: "",
-    logo: ""
 };
 
 export const SALES_ORDER_SCHEMA = {

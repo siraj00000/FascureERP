@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import TransitionModal from "../../../components/TransitionModal";
-import { MdOutlineAddBox, MdOutlineClose } from "react-icons/md";
+import { MdOutlineClose } from "react-icons/md";
 import { ISP_DYNAMIC_DATA } from "../../../utils/ISP.data";
 import FormInput from "../../../components/FormInput";
 
@@ -158,4 +158,4 @@ const ChildElement = ({
   );
 };
 
-export default ProductsModal;
+export default React.memo(ProductsModal);

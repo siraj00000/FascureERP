@@ -1,0 +1,13 @@
+Customer address
+
+Sale order
+
+/= remove fixed to 2 decimal
+
+delivery order
+
+remove description
+
+receive order onclose should go to the level one
+
+po qty reviced

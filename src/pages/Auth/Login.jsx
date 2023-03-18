@@ -1,16 +1,27 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import swal from "sweetalert";
 import { handleInsertAction } from "../../context/actions";
 import { LOGIN_FORM } from "../../utils/form_grid.data";
 import { LOGIN_SCHEMA } from "../../utils/states.values";
+import { useStateContext } from "../../context/ContextProvider";
+import swal from "sweetalert";
 
 const Login = () => {
+  const { setPermissions } = useStateContext();
   const [values, setValues] = useState(LOGIN_SCHEMA);
   const [error, setError] = useState({});
 
   const onLoginValueChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
+  };
+
+  const sortPermissions = (permissions) => {
+    let permissionList = [];
+    permissions.forEach((currentItem) => {
+      permissionList.push(currentItem[0].name);
+    });
+    setPermissions(permissionList);
+    return true;
   };
 
   const handleSubmit = async (e) => {
@@ -21,11 +32,12 @@ const Login = () => {
       if (response.data.success) {
         sessionStorage.setItem("_fs.ut", response.data.data.token);
         response.data.data.token = undefined;
-
-        swal("login!", response.data?.message, "success").then(() => {
+        let permission = response.data.data.permissions;
+        let userPermissions = sortPermissions(permission);
+        if (userPermissions) {
           sessionStorage.setItem("session", JSON.stringify(response.data.data));
           document.location = "/";
-        });
+        }
       } else swal("Failed!!", response.data?.message, "error");
     } catch (error) {
       setError(error.response.data[1]);

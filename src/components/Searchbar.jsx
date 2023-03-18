@@ -3,7 +3,7 @@ import { IoIosSearch } from "react-icons/io";
 
 const Searchbar = ({ func, value }) => {
   return (
-    <div className="flex items-center absolute right-5 gap-2 text-white">
+    <div className="flex items-center absolute right-5 gap-2 text-darkfs">
       <input
         placeholder="search"
         type={"search"}

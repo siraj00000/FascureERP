@@ -47,11 +47,13 @@ const ISPLayout = ({ title, URL, dataType, pageGrid, moreDataKey, invpo }) => {
 
   useEffect(() => {
     let isMounted = true;
-    // Fetching data throw axios
-    let fetchURL = URL + `?page=${page}&search=${search}`;
-    handleFetchAction(fetchURL).then((res) => {
+
+    const fetchData = async () => {
+      let fetchURL = URL + `?page=${page}&search=${search}`;
+      const response = await handleFetchAction(fetchURL);
+
+      let _data = response?.data;
       if (isMounted) {
-        let _data = res?.data;
         setCollections({
           data: _data.data,
           from: _data.from,
@@ -60,8 +62,9 @@ const ISPLayout = ({ title, URL, dataType, pageGrid, moreDataKey, invpo }) => {
           total: _data.total,
         });
       }
-    });
+    };
 
+    fetchData();
     return () => {
       isMounted = false;
     };

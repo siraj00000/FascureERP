@@ -13,7 +13,7 @@ import ProductsModal from "./ProductsModal";
 import NonSeriallizedProduct from "./NonSeriallizedProduct";
 import swal from "sweetalert";
 
-const RoForms = ({ id, attribute }) => {
+const RoForms = ({ id, attribute, onInsertComplete }) => {
   let COLLECTION_ATTRIBUTES = ISP_DYNAMIC_DATA[attribute];
   const [level, setLevel] = useState(0);
   const [productList, setProductList] = useState([]);
@@ -28,11 +28,15 @@ const RoForms = ({ id, attribute }) => {
     if (level !== 0) setLevel(level - 1);
   };
 
-  const calcPrevReceiveOrderQty = (receiveOrderDetail, index) => {
+  const calcPrevReceiveOrderQty = (receiveOrderDetail, part_number) => {
     let quantity = 0;
     for (let roIndex = 0; roIndex < receiveOrderDetail.length; roIndex++) {
-      const element = receiveOrderDetail[roIndex].detail[index];
-      quantity = quantity + Number(element?.quantity);
+      const detail = receiveOrderDetail[roIndex].detail;
+
+      detail?.forEach((element) => {
+        if (element.part_number === part_number)
+          quantity = quantity + Number(element?.quantity);
+      });
     }
     return quantity;
   };
@@ -55,7 +59,7 @@ const RoForms = ({ id, attribute }) => {
 
         let receiveOrdersQty = calcPrevReceiveOrderQty(
           receiveOrderDetail,
-          index
+          item?.product.part_number
         );
 
         let availableQty = item?.quantity - receiveOrdersQty;
@@ -65,6 +69,7 @@ const RoForms = ({ id, attribute }) => {
           name: item?.product?.name,
           quantity: availableQty,
           serialized_item: item?.product?.serialized_item,
+          ordered_qty: item?.quantity,
         });
       }
 
@@ -176,7 +181,9 @@ const RoForms = ({ id, attribute }) => {
       };
       const insertReceiveOrder = async () => {
         try {
-          handleInsertAction("api/receive_orders", data);
+          await handleInsertAction("api/receive_orders", data);
+          onInsertComplete();
+          setLevel(0);
           swal("Good job!", "Receive order created succesfully!", "success");
           onClose();
         } catch (error) {
@@ -200,11 +207,7 @@ const RoForms = ({ id, attribute }) => {
     "inline-block px-4 mr-2 my-2 py-1.5 bg-greenfs text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-darkfs hover:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out";
   return (
     <div>
-      <TransitionModal
-        title={"Receive Order"}
-        onPress={() => ""}
-        isLoading={isLoading}
-      >
+      <TransitionModal title={"RO"} onPress={() => ""} isLoading={isLoading}>
         <ChildElement handleSubmit={handleSubmit}>
           <div className="flex items-center gap-3 mb-5">
             {level !== 0 && (
@@ -251,8 +254,9 @@ const RoForms = ({ id, attribute }) => {
                   <tr className="bg-gray-200 pl-2 h-12">
                     <th className="pl-2">Item</th>
                     <th>Part No</th>
-                    <th>Qty</th>
+                    <th>Ordered Qty</th>
                     <th>Received Qty</th>
+                    <th>Qty</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -261,6 +265,7 @@ const RoForms = ({ id, attribute }) => {
                     <tr key={index} className="h-12 text-sm">
                       <td className="pl-2">{item.name}</td>
                       <td>{item.part_number}</td>
+                      <td>{item.ordered_qty}</td>
                       <td>{item.quantity}</td>
                       <td className="relative">
                         <input
@@ -298,7 +303,7 @@ const RoForms = ({ id, attribute }) => {
                               Edit
                             </button>
                           ) : (
-                            <>
+                            <div className="flex items-center justify-center">
                               {item.serialized_item === 1 ? (
                                 <TooltipComponent
                                   content={"Add item's serial number"}
@@ -334,7 +339,7 @@ const RoForms = ({ id, attribute }) => {
                                   />
                                 </TooltipComponent>
                               )}
-                            </>
+                            </div>
                           )}
                         </div>
                       </td>
@@ -395,4 +400,4 @@ const ChildElement = ({ children, onClose, handleSubmit }) => {
   );
 };
 
-export default RoForms;
+export default React.memo(RoForms);

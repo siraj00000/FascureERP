@@ -16,15 +16,16 @@ export { default as PurchaseOrder } from "./Payables/PurchaseOrder";
 // Ware house
 export { default as WareHouse } from "./Warehouse/WareHouse";
 // Settings
-export { default as CompanySettings } from "./CompanySettings/CompanySettings";
-export { default as Currency } from "./CompanySettings/Currency";
-export { default as ConfigVAT } from "./CompanySettings/VatConfig";
-export { default as Address } from "./CompanySettings/Address";
-export { default as BankAccount } from "./CompanySettings/BankAccount";
-export { default as PaymentMethod } from "./CompanySettings/PaymentMethod";
-export { default as PaymentTerms } from "./CompanySettings/PaymentTerms";
-export { default as Language } from "./CompanySettings/Language";
-export { default as Country } from "./CompanySettings/Country";
+export { default as CompanySettings } from "./Settings/CompanySettings";
+export { default as Currency } from "./Settings/Currency";
+export { default as Permissions } from "./Settings/RoleAndPermission";
+export { default as ConfigVAT } from "./Settings/VatConfig";
+export { default as Address } from "./Settings/Address";
+export { default as BankAccount } from "./Settings/BankAccount";
+export { default as PaymentMethod } from "./Settings/PaymentMethod";
+export { default as PaymentTerms } from "./Settings/PaymentTerms";
+export { default as Language } from "./Settings/Language";
+export { default as Country } from "./Settings/Country";
 // Other
 export { default as Category } from "./Others/Category";
 export { default as Request } from "./Others/Request";

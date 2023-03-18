@@ -1,0 +1,110 @@
+NOTE: 
+symbol: **, *, __
+
+** = Haroon Afridi
+* = Muhammad Siraj
+__ = Farhan Bhai
+
+------------------------------------x----------------------------------x--------------
+
+** purchase order no in Receive Order
+** suplier name in RO
+
+* add note/comment (Siraj)
+
+(need to confirm) (Farhan bhai)
+__ suplier invoice in RO 
+__ user_name in RO
+
+RO
+items:
+line no.
+part_no.
+description
+receive qty
+
+** ordered qty (from PO)
+* remaining qty calc(ordered - receive) (siraj)
+
+in RO level 2
+
+changes
+* add ordered qty and remaining qty (reviced) (siraj) (done)
+** reference is not required in SO (done)
+
+
+** company_setting, customer, supplier => must have the second language field (not mandatory) in slug => (done)
+
+
+ask
+what is the logic of unique_number
+
+** the logic of so_num must be applied to (RO, DO, Receipt)
+
+
+* language convert button and some variable conversion (siraj)
+
+x==========x============
+RO logic
+10
+
+2
+
+remaining --- 8
+
+next RO
+
+
+x======================NEW CHANGES 2/28/2022======x===================================
+For haroon bhai
+
+1 RO 
+* detail item's products info against its id
+
+2 DO 
+* provide same details alike RO but against so_id in Single DO
+
+
+@everywhere
+* provide customer/supplier detail against id
+
+
+x======================CHANGES 3/1/2022======x===================================
+
+* Haroon bhai
+
+In master info RO
+
+add supplier_invoice (mandatory)
+PO EDIT (The user can change any thing but while changing the quantity restrict them according to received qty if PO status set to "posted")
+
+
+Add status field in SO, PO, INV
+
+by default set to draft
+
+
+
+* Siraj
+
+add discription in RO and DO items
+
+x==================x================
+company info 
+
+logo must be at left info must be highlighted
+
+add currency name in PO
+
+barcode on PN and SN in DO
+pdf print order 
+add customer primary id in bracket
+
+x==================x================
+Supplier Address in Edit PO
+VAT data against vat_id in Edit PO 
+
+x====================x==================
+company_setting view
+role_permission 
+customer address must be in dropdown

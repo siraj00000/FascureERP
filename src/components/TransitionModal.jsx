@@ -29,7 +29,7 @@ const TransitionModal = ({ children, title, onPress, isLoading, isDisabled }) =>
       <button
         disabled={isDisabled}
         type="button"
-        className="inline-block px-4 mr-2 my-2 py-1.5 bg-greenfs text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-darkfs hover:shadow-lg focus:bg-darkfs focus:shadow-lg focus:outline-none focus:ring-0 active:bg-darkfs active:shadow-lg transition duration-150 ease-in-out"
+        className="flex items-center justify-center gap-2 px-4 mr-2 my-2 py-1.5 bg-greenfs text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-darkfs hover:shadow-lg focus:bg-darkfs focus:shadow-lg focus:outline-none focus:ring-0 active:bg-darkfs active:shadow-lg transition duration-150 ease-in-out"
         data-mdb-ripple="true"
         onClick={triggerHandler}
       >

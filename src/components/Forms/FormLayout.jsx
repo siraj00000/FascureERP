@@ -39,12 +39,12 @@ const FormLayout = (props) => {
 
   return (
     <div>
-      <div className="flex items-center justify-between h-12 px-5 bg-bluef text-yellowfc">
+      <div className="flex items-center justify-between h-12 px-5 bg-gray-200 text-darkfs">
         <h1 className="text-xl font-bold uppercase">{props.type}</h1>
         <FaWindowClose
           onClick={onClose}
           className={
-            "cursor-pointer rounded-sm text-yellowfc font-bold text-xl"
+            "cursor-pointer rounded-sm text-darkfs font-bold text-xl"
           }
         />
       </div>
@@ -95,7 +95,7 @@ const FormLayout = (props) => {
 
         <div className="text-right border-t-1 mt-4 py-3">
           <button
-            className={`h-10 px-10 rounded-lg text-center bg-bluefc font-semibold text-yellowfc`}
+            className={`h-10 px-10 rounded-lg text-center bg-greenfs font-semibold text-gray-100`}
           >
             Submit
           </button>

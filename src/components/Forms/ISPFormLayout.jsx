@@ -164,6 +164,9 @@ const ISPFormLayout = (props) => {
     values[products_by] = list;
     setValues({ ...values });
   };
+  const onChangeTextarea = (e) => {
+    setValues({ ...values, address: e.target.value });
+  };
   const calcTotalWithoutVat = () => {
     let total_without_vat = 0;
     let total_vat = 0;
@@ -193,9 +196,6 @@ const ISPFormLayout = (props) => {
       no_of_quantity,
     };
   };
-  const onChangeTextarea = (e) => {
-    setValues({ ...values, address: e.target.value });
-  };
   const total = useMemo(() => calcTotalWithoutVat(), [values[products_by]]);
 
   let dates = useMemo(() => generateDate(values?.days), [values?.days]);
@@ -213,6 +213,7 @@ const ISPFormLayout = (props) => {
         vat_total: Math.ceil(total?.total_vat),
         grand_total: total?.grand_total,
         address: values.address,
+        status: "draft",
         user_id: JSON.parse(sessionStorage.getItem("session"))?.id,
       };
 
@@ -253,7 +254,7 @@ const ISPFormLayout = (props) => {
     <div className="p-5 min-h-[590] w-full overflow-hidden">
       <div className="flex justify-between">
         <h1 className="font-bold text-xl uppercase text-right mb-5">
-          {props.type} Form100
+          {props.type} Form
         </h1>
         <AiOutlineClose
           size={30}
@@ -267,6 +268,8 @@ const ISPFormLayout = (props) => {
         <div className="flex justify-between w-full gap-2">
           <div className="w-70 border-1 rounded-md p-2">
             <h6 className="font-semibold">Bill To:</h6>
+
+            {/* Searchbars */}
             <div className="flex items-center flex-wrap gap-x-3">
               {props?.dropdowns?.constants.map((input, index) => (
                 <SearchBarComponent
@@ -460,19 +463,19 @@ const ISPFormLayout = (props) => {
               error ? "bg-red-200" : "bg-green-200"
             } rounded-md p-5 gap-5 flex items-center  flex-wrap w-max max-w-full mt-5 border-1`}
           >
-            <h6 className="text-xs font-semibold">{error.content}</h6>
+            <h6 className="text-xs font-semibold">{error?.content}</h6>
           </div>
         )}
-        {error.type === "list" && error.content !== null && (
+        {error.type === "list" && error?.content !== null && (
           <div
             className={` ${
               error ? "bg-red-200" : "bg-green-200"
             } rounded-md p-5 gap-5 flex items-center  flex-wrap w-max max-w-full mt-5 border-1`}
           >
             {typeof error === "string" ? (
-              <h6 className="text-xs font-semibold">{error.content[0]}</h6>
+              <h6 className="text-xs font-semibold">{error?.content[0]}</h6>
             ) : (
-              Object.entries(error.content[1])?.map(([key, value]) => (
+              Object.entries(error?.content[1])?.map(([key, value]) => (
                 <div
                   key={key + value}
                   className="flex items-center gap-2 w-max"

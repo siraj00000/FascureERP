@@ -1,0 +1,36 @@
+Receiveables
+
+Invoice
+Delivery Note
+Receipt
+Supplier
+Slave
+Paybles
+
+Purchase Order
+Payment Receipt
+Receive Note
+Number Sequence
+Ware House
+
+Warehouse
+Settings
+
+Company Settings
+VAT Config
+Payment Terms
+Payment Method
+Currency
+Bank Account
+Country
+Language
+Address
+Others
+
+Category
+Request
+Req Detail
+Term Condition
+Term Applied
+Unit Type
+Unit

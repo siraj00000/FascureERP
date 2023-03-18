@@ -14,7 +14,7 @@ const Button = ({ color, bgColor, size, text, borderRadius }) => {
 export const ButtonSecondary = ({ eventToTrigger, text, Icon, disabled }) => (
   <button
     onClick={eventToTrigger}
-    className="flex items-center gap-1 text-white hover:text-[#f37216] text-sm p-1 rounded-sm"
+    className="flex items-center gap-1 text-darkfs hover:text-greenfs text-sm p-1 rounded-sm"
     disabled={disabled}
   >
     <Icon /> {text}

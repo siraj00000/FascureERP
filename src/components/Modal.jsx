@@ -10,7 +10,7 @@ const Modal = ({ children, mxw }) => {
        
        `}
       id="exampleModal"
-      tabindex="-1"
+      tabIndex={"-1"}
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >

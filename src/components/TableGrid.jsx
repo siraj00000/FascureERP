@@ -13,7 +13,7 @@ const TableGrid = (props) => {
 
   return (
     <div>
-      <div className="flex items-center gap-3 w-full bg-darkfs h-10 px-3 relative rounded-t-xl">
+      <div className="flex items-center gap-3 w-full bg-gray-200 text-darkfs h-10 px-3 relative rounded-t-xl">
         <ButtonSecondary
           eventToTrigger={props.onAdd}
           Icon={BiAddToQueue}

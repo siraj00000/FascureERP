@@ -52,4 +52,4 @@ const ChildElement = ({ onClose, addItem, list, indexOfItem }) => {
   );
 };
 
-export default NonSeriallizedProduct;
+export default React.memo(NonSeriallizedProduct);

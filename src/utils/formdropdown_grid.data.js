@@ -14,7 +14,7 @@ export const SALES_ORDER_DROPDOWNS = [
         placeholder: 'mark..',
         label: 'Currency*',
         required: true,
-        url: '/api/currencies',
+        url: '/api/get/active-currencies',
         searchby: 'name'
     },
     {
@@ -89,7 +89,7 @@ export const PURCHASE_ORDER_DROPDOWNS = [
         placeholder: 'mark..',
         label: 'Currency*',
         required: true,
-        url: '/api/currencies',
+        url: '/api/get/active-currencies',
         searchby: 'name'
     },
     {
@@ -155,7 +155,7 @@ export const INVOICE_DROPDOWNS = [
         placeholder: 'mark..',
         label: 'Currency*',
         required: true,
-        url: '/api/currencies',
+        url: '/api/get/active-currencies',
         searchby: 'name'
     },
     {
@@ -317,12 +317,20 @@ export const PRODUCT_DROPDOWNS = [
 
 export const COMPANY_SETTINGS_DROPDOWNS = [
     {
+        name: 'address_id',
+        placeholder: 'block..',
+        label: 'Address*',
+        required: true,
+        url: '/api/addresses',
+        searchby: 'name'
+    },
+    {
         name: 'currency_id',
         type: 'number',
         placeholder: 'SAR..',
         label: 'Currency*',
         required: true,
-        url: '/api/currencies',
+        url: '/api/get/active-currencies',
         searchby: 'name'
     },
     {
@@ -343,7 +351,7 @@ export const CUSTOMER_DROPDOWN = [
         placeholder: 'cash..',
         label: 'Currency*',
         required: true,
-        url: '/api/currencies',
+        url: '/api/get/active-currencies',
         searchby: 'name'
     },
     {
@@ -364,7 +372,7 @@ export const SUPPLIER_DROPDOWN = [
         placeholder: 'cash..',
         label: 'Currency*',
         required: true,
-        url: '/api/currencies',
+        url: '/api/get/active-currencies',
         searchby: 'name'
     },
     {

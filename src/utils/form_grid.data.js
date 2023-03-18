@@ -14,6 +14,20 @@ export const CURRENCY_FORM = [
         required: true,
     },
     {
+        name: 'value',
+        type: 'text',
+        placeholder: '75..',
+        label: 'Value*',
+        required: true,
+    },
+    {
+        name: 'status',
+        type: 'text',
+        placeholder: 'active..',
+        label: 'Status*',
+        required: true,
+    },
+    {
         name: 'code',
         type: 'text',
         placeholder: 'SAR..',
@@ -283,6 +297,13 @@ export const CUSTOMER_FORM = [
         required: true,
     },
     {
+        name: 'second_language',
+        type: 'text',
+        placeholder: '...',
+        label: 'Name 2*',
+        required: false,
+    },
+    {
         name: 'email',
         type: 'email',
         placeholder: 'bac@gmail.com..',
@@ -342,6 +363,13 @@ export const SUPPLIER_FORM = [
         placeholder: 'mark..',
         label: 'Name*',
         required: true,
+    },
+    {
+        name: 'second_language',
+        type: 'text',
+        placeholder: '...',
+        label: 'Name 2*',
+        required: false,
     },
     {
         name: 'email',
@@ -738,6 +766,13 @@ export const COMPANY_SETTINGS_FORM = [
         required: true,
     },
     {
+        name: 'second_language',
+        type: 'text',
+        placeholder: '...',
+        label: 'Name 2',
+        required: false,
+    },
+    {
         name: 'email',
         type: 'text',
         placeholder: 'mark@example.com..',
@@ -755,31 +790,16 @@ export const COMPANY_SETTINGS_FORM = [
         name: 'cr_number',
         type: 'text',
         placeholder: '392392839..',
-        label: 'CR Number*',
-        required: true,
+        label: 'CR Number',
+        required: false,
     },
     {
         name: 'vat_number',
         type: 'text',
         placeholder: '392832839..',
-        label: 'VAT Number*',
-        required: true,
-    },
-    {
-        name: 'address',
-        type: 'text',
-        placeholder: 'block #02..',
-        label: 'Address*',
-        required: true,
-    },
-    {
-        name: 'logo',
-        type: 'file',
-        placeholder: 'brand name..',
-        label: 'Logo*',
-        required: true,
-        accept: "images/png, images/svg, images/jpeg, images/jpg, images/gif"
-    },
+        label: 'VAT Number',
+        required: false,
+    }
 ];
 
 export const PAYMENT_METHOD_FORM = [

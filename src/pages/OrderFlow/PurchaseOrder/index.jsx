@@ -1,91 +1,147 @@
-import React, { useState } from "react";
-import swal from "sweetalert";
-import FormInput from "../../../components/FormInput";
-import TransitionModal from "../../../components/TransitionModal";
-import {
-  handleFetchAction,
-  handleInsertAction,
-} from "../../../context/actions";
+import React, { useEffect, useState } from "react";
+import Loader from "../../../components/Loader";
+import { handleFetchAction } from "../../../context/actions";
+import { BsChevronDown } from "react-icons/bs";
+import { GrView } from "react-icons/gr";
+import RoForms from "../ReceiveOrder/RoForms";
+import ViewPurchaseOrder from "./ViewPurchaseOrder";
+import InsertPurchaseOrder from "./InsertPurchaseOrder";
+import OrderEditForm from "../../../components/EditForms/OrderEditForm";
 
-const PurchaseOrder = ({ id }) => {
-  const [description, setDescription] = useState("");
-  const setProperties = (data) => {
-    let { sale_order, detail } = data;
-    const sortProperties = {
-      supplier_id: sale_order?.customer_id,
-      currency_id: sale_order?.currency_id,
-      address_id: sale_order?.address_id,
-      payment_id: sale_order?.payment_id,
-      sale_order_id: sale_order?.id,
-      reference_number: sale_order?.reference_number,
-      date: sale_order?.date,
-      due_date: sale_order?.due_date,
-      vat_total: sale_order?.vat_total,
-      total_without_vat: sale_order?.total_without_vat,
-      grand_total: sale_order?.grand_total,
-      description,
-      address: sale_order?.address,
-      po: detail,
-    };
-    return sortProperties;
-  };
-  const convertSOToPO = async (e, onClose) => {
-    e.preventDefault();
+const PurchaseOrder = ({ data, activeIndex }) => {
+  const [PO_Collections, setPOCollections] = useState(null); // SO refers to Sales Order
+  const [accordianIndex, setAccordianIndex] = useState(null);
+
+  const fetchData = async () => {
+    setPOCollections(null);
     try {
       const response = await handleFetchAction(
-        `api/get/single-saleorder/${id}`
+        `http://localhost:3000/api/get/po-ro-by-sale-order-id/?sale_order_id=${data.id}`
       );
-      if (response.data) {
-        const data = setProperties(response.data);
-
-        await handleInsertAction(`/api/purchase_orders`, data);
-
-        swal("Good job!", "Purchase order has been converted!", "success");
-        onClose();
-      }
+      setPOCollections({
+        success: true,
+        data: response.data,
+      });
     } catch (error) {
+      if (!error.response?.data?.success) {
+        setPOCollections(error.response?.data);
+        return;
+      }
       console.log(error);
     }
   };
 
-  let input = {
-    name: "description",
-    placeholder: "add description for purchase order..",
-    label: "Description*",
-    required: true,
-    w_size: "w-full",
-  };
+  useEffect(() => {
+    let isMount = true;
+    if (isMount) {
+      activeIndex === 1 && fetchData();
+    }
+    return () => {
+      isMount = false;
+    };
+  }, []);
 
+  const handleAccordianIndex = (index) => {
+    if (accordianIndex === index) {
+      setAccordianIndex(null);
+    } else {
+      setAccordianIndex(index);
+    }
+  };
+  let isLoading = PO_Collections === null;
+  let doesExits = !isLoading && PO_Collections.success;
+  if (isLoading) return <Loader />;
   return (
     <div>
-      <TransitionModal title={"Purchase Order"}>
-        <ChildElement handleSubmit={convertSOToPO}>
-          <FormInput
-            {...input}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            size={input.w_size}
-            note={["note", "description"].includes(input.name) ? "h-20" : ""}
-          />
-          <button
-            className={` bg-greenfs w-full flex items-center justify-center gap-2 border-1 rounded-md text-gray-100 font-semibold p-2`}
-          >
-            Convert
-          </button>
-        </ChildElement>
-      </TransitionModal>
+      <div className="">
+        <InsertPurchaseOrder id={data.id} onInsertComplete={fetchData} />
+      </div>
+      {doesExits ? (
+        <section className="flex flex-col gap-2">
+          {PO_Collections?.data?.po_order.length !== 0 ? (
+            <div className="bg-white w-full flex items-center justify-between px-4 py-2 rounded-md text-darkfs font-bold cursor-pointer">
+              <h1 className="flex-1">PO No.</h1>
+              <h1 className="flex-1">Grand Total</h1>
+              <h1 className="flex-1">Date</h1>
+              <h1 className="flex-1">Status</h1>
+              <h1 className="flex-1"></h1>
+            </div>
+          ) : null}
+          {PO_Collections?.data?.po_order.map((item, index) => {
+            return (
+              <div key={index} className="w-full">
+                {/* Purchase Order */}
+                <div className="bg-white text-darkfs border-1 w-full flex items-center justify-between py-2 px-4 rounded-md font-bold cursor-pointer">
+                  <h1 className="flex-1">{item.po_num}</h1>
+                  <h1 className="flex-1">{item.grand_total}</h1>
+                  <h1 className="flex-1">{item.created_at.split("T")[0]}</h1>
+                  <h1 className="flex-1">
+                    <span className="bg-greenfs py-1 px-3 text-white text-sm rounded-full">
+                      {item.status}
+                    </span>
+                  </h1>
+                  <div className="flex-1 flex items-center justify-end">
+                    <ViewPurchaseOrder id={data.id} />
+                    <RoForms
+                      id={item.id}
+                      attribute={"receive_order"}
+                      onInsertComplete={fetchData}
+                    />
+                    <OrderEditForm
+                      id={data.id}
+                      orderData={item}
+                      onEditComplete={fetchData}
+                    />
+                    <BsChevronDown
+                      size={20}
+                      onClick={() => handleAccordianIndex(index)}
+                    />
+                  </div>
+                </div>
+
+                {/* Receive Order List */}
+                {accordianIndex === index &&
+                PO_Collections?.data?.ro_order[index].length !== 0 ? (
+                  <div className="w-full p-2 border-1 rounded-md my-2 flex flex-col gap-2">
+                    {PO_Collections?.data?.ro_order[index].map(
+                      (roItem, roIndex) => {
+                        return (
+                          <div
+                            key={roIndex}
+                            className="w-full py-2 px-5 rounded-md bg-gray-200  text-darkfs font-semibold "
+                          >
+                            <div className="w-full flex items-center justify-between">
+                              <h1 className="flex-1">
+                                {roItem?.warehouse?.name}{" "}
+                                <span className="text-black font-bold text-[8px] p-1 rounded-sm">
+                                  o Warehouse
+                                </span>
+                              </h1>
+                              <h1 className="flex-1">
+                                {roItem.created_at?.split("T")[0]}{" "}
+                                <span className="text-black font-bold text-[8px] p-1 rounded-sm">
+                                  o Date
+                                </span>
+                              </h1>
+                              <button className="">
+                                <GrView size={20} />
+                              </button>
+                            </div>
+                          </div>
+                        );
+                      }
+                    )}
+                  </div>
+                ) : null}
+              </div>
+            );
+          })}
+        </section>
+      ) : (
+        <h1>{PO_Collections?.error}</h1>
+      )}
     </div>
   );
 };
 
-const ChildElement = ({ children, onClose, handleSubmit }) => {
-  return (
-    <div className="w-[400px] p-5">
-      <form onSubmit={(e) => handleSubmit(e, onClose)} className={"p-5 w-full"}>
-        {children}
-      </form>
-    </div>
-  );
-};
-
-export default PurchaseOrder;
+export default React.memo(PurchaseOrder);

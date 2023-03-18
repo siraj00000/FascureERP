@@ -3,13 +3,13 @@ import TransitionModal from "../../../components/TransitionModal";
 import { handleFetchAction } from "../../../context/actions";
 import FormTemplate from "../../../components/FormTemplate";
 
-const PurchaseOrder = ({ id }) => {
-  const [PO_Collections, setPOCollections] = useState(null); // SO refers to Sales Order
+const ViewPurchaseOrder = ({ id }) => {
+  const [PO_Collections, setPOCollections] = useState(null); // PO refers to Purchase Order
 
   const fetchPurchaseOrder = async () => {
     try {
       const response = await handleFetchAction(
-        `api/get/po-by-sale-order-id/?sale_order_id=${id}`
+        `http://localhost:3000/api/get/po-by-sale-order-id/?sale_order_id=${id}`
       );
       setPOCollections(response.data);
     } catch (error) {
@@ -21,7 +21,7 @@ const PurchaseOrder = ({ id }) => {
   return (
     <div>
       <TransitionModal
-        title={"Purchase Order"}
+        title={"PO"}
         onPress={fetchPurchaseOrder}
         isLoading={isLoading}
       >
@@ -31,10 +31,11 @@ const PurchaseOrder = ({ id }) => {
           collectionOf={"po"}
           date={"date"}
           orderFor={"supplier"}
+          formWidth="w-[1200px]"
         />
       </TransitionModal>
     </div>
   );
 };
 
-export default PurchaseOrder;
+export default React.memo(ViewPurchaseOrder);

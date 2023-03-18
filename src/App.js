@@ -1,4 +1,10 @@
-import React, { Suspense } from 'react';
+/**
+ * The main component for the application.
+ *
+ * @returns {JSX.Element} The main application component.
+ */
+
+import React, { Suspense, useEffect, useState } from 'react';
 import { lazily } from 'react-lazily';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
@@ -6,6 +12,7 @@ import './App.css';
 import { MainSplash } from './components/Splash';
 import { useStateContext } from './context/ContextProvider';
 import NoInternetConnection from './pages/Others/NoInternetConnection';
+import Loader from './components/Loader';
 
 const { // Receiveables
   SalesOrder, Customers, Product, Invoice, DeliveryNote, Receipt, Slave, Supplier,
@@ -15,11 +22,11 @@ const { // Receiveables
   WareHouse,
   // Settings
   Currency, ConfigVAT, Address, BankAccount, PaymentMethod, PaymentTerms, CompanySettings,
-  Language, Country,
+  Language, Country, Permissions,
   // Other
   Category, Request, RequestDetail, TermApplied, TermsConditions, UnitType, Unit,
   // extras
-  Orders, Employees, Ecommerce,
+  Orders, Employees, 
   // Auth
   Login, Register,
   // Dashboard
@@ -33,12 +40,26 @@ const { // Receiveables
 
 
 const App = () => {
-  const { token } = useStateContext();
+  const { token, lang, permissions } = useStateContext();
+  console.log(permissions);
+  const [isOnline, setIsOnline] = useState(window.navigator.onLine);
 
-  if (!window.navigator.onLine) {
-    return <NoInternetConnection />;
-  }
+  useEffect(() => {
+    const handleConnectionChange = () => {
+      setIsOnline(window.navigator.onLine);
+    };
 
+    window.addEventListener('online', handleConnectionChange);
+    window.addEventListener('offline', handleConnectionChange);
+
+    return () => {
+      window.removeEventListener('online', handleConnectionChange);
+      window.removeEventListener('offline', handleConnectionChange);
+    };
+  }, []);
+
+  if (!isOnline) return <NoInternetConnection />;
+  if (!lang) return <Loader />;
   return (
     <Suspense fallback={<MainSplash />}>
       <BrowserRouter>
@@ -46,7 +67,7 @@ const App = () => {
           {/* Admin Panel */}
           <Route path='/' element={PrivateRoute(token, <Dashboard />, "/login")}>
             {/* Dashboard */}
-            <Route index element={<Ecommerce />} />
+            <Route index element={<h1>Ecomerce</h1>} />
 
             {/* Pages */}
             <Route path='/orders' element={<Orders />} />
@@ -74,6 +95,7 @@ const App = () => {
 
             {/* Settings */}
             <Route path='/company-settings' element={<CompanySettings />} />
+            <Route path='/user-permissions' element={<Permissions />} />
             <Route path='/currency' element={<Currency />} />
             <Route path='/vat-config' element={<ConfigVAT />} />
             <Route path='/address' element={<Address />} />
@@ -104,6 +126,16 @@ const App = () => {
   );
 };
 
+
+/**
+ * A function that returns a private route if authenticated, or redirects to a specified path if not authenticated.
+ *
+ * @param {boolean} auth - Indicates whether the user is authenticated.
+ * @param {JSX.Element} children - The children components to render if authenticated.
+ * @param {string} path - The path to redirect to if not authenticated.
+ *
+ * @returns {(JSX.Element|Navigate)} The private route or a redirect.
+ */
 const PrivateRoute = (auth, children, path) => {
   return auth ? children : <Navigate to={path} />;
 };
