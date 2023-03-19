@@ -18,17 +18,20 @@ const TableGrid = (props) => {
           eventToTrigger={props.onAdd}
           Icon={BiAddToQueue}
           text={"Add"}
-        />
+          isAllowed={props.isCreationAllowed}
+          />
         <ButtonSecondary
           eventToTrigger={props.onEdit}
           Icon={FiEdit2}
           text={"Edit"}
+          isAllowed={props.isEditAllowed}
           disabled={props.focusedId === null}
-        />
+          />
         <ButtonSecondary
           eventToTrigger={props.onDelete}
           Icon={AiOutlineDelete}
           text={"Delete"}
+          isAllowed={props.isDeleteAllowed}
           disabled={props.focusedId === null}
         />
         {props.moreDataKey && (

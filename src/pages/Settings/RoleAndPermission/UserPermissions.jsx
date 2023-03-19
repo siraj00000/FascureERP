@@ -31,7 +31,7 @@ const UserPermissions = ({ updatePermissions }) => {
             className="ml-auto bg-darkfs text-gray-100 gap-2 p-2 rounded-md flex items-center justify-center w-max my-5"
           >
             <BsJournalPlus />
-            Update Permissions
+            Permissions
           </button>
           <table className="w-full border-collapse border-1 rounded-md text-md font-semibold">
             <thead className="bg-gray-200 py-2">

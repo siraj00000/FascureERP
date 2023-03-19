@@ -41,7 +41,6 @@ const { // Receiveables
 
 const App = () => {
   const { token, lang, permissions } = useStateContext();
-  console.log(permissions);
   const [isOnline, setIsOnline] = useState(window.navigator.onLine);
 
   useEffect(() => {

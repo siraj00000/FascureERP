@@ -15,15 +15,6 @@ const Login = () => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
-  const sortPermissions = (permissions) => {
-    let permissionList = [];
-    permissions.forEach((currentItem) => {
-      permissionList.push(currentItem[0].name);
-    });
-    setPermissions(permissionList);
-    return true;
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -32,12 +23,13 @@ const Login = () => {
       if (response.data.success) {
         sessionStorage.setItem("_fs.ut", response.data.data.token);
         response.data.data.token = undefined;
-        let permission = response.data.data.permissions;
-        let userPermissions = sortPermissions(permission);
-        if (userPermissions) {
-          sessionStorage.setItem("session", JSON.stringify(response.data.data));
+        response.data.data.permissions = undefined;
+
+        sessionStorage.setItem("session", JSON.stringify(response.data.data));
+
+        setTimeout(() => {
           document.location = "/";
-        }
+        }, 500);
       } else swal("Failed!!", response.data?.message, "error");
     } catch (error) {
       setError(error.response.data[1]);

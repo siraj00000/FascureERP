@@ -5,9 +5,8 @@ import { useStateContext } from "../context/ContextProvider";
 import Logo from "../assets/logo.jpeg";
 
 const Sidebar = () => {
-  const { companyData, lang } = useStateContext();
-  let MENU_LINKS = useMemo(() => DYNAMIC_MENU_LINKS(lang), []);
-
+  const { companyData, lang, permissions } = useStateContext();
+  let MENU_LINKS = useMemo(() => DYNAMIC_MENU_LINKS(lang, permissions), []);
   const activeLink =
     "flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-md m-2 bg-greenfs text-gray-100";
   const normalLink = `flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-md text-darks 

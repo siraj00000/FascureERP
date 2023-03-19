@@ -11,10 +11,18 @@ const Button = ({ color, bgColor, size, text, borderRadius }) => {
   );
 };
 
-export const ButtonSecondary = ({ eventToTrigger, text, Icon, disabled }) => (
+export const ButtonSecondary = ({
+  eventToTrigger,
+  text,
+  Icon,
+  disabled,
+  isAllowed = true,
+}) => (
   <button
     onClick={eventToTrigger}
-    className="flex items-center gap-1 text-darkfs hover:text-greenfs text-sm p-1 rounded-sm"
+    className={`${
+      isAllowed ? "flex" : "hidden"
+    } items-center gap-1 text-darkfs hover:text-greenfs text-sm p-1 rounded-sm`}
     disabled={disabled}
   >
     <Icon /> {text}

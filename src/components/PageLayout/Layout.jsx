@@ -13,6 +13,7 @@ import FormLayout from "../Forms/FormLayout";
 import Pagination from "../Pagination";
 import Splash from "../Splash";
 import ViewTableGrid from "../ViewTableGrid";
+import { useStateContext } from "../../context/ContextProvider";
 
 const PageLayout = ({
   title,
@@ -22,7 +23,12 @@ const PageLayout = ({
   valuesGroup,
   formDropdownGrid,
   moreDataKey,
+  createKey,
+  viewKey,
+  editKey,
+  deleteKey,
 }) => {
+  const { permissions } = useStateContext();
   const [isLoading, setLoading] = useState(false);
   const [focusedId, setFocusedId] = useState(null);
   const [page, setPage] = useState(1);
@@ -38,7 +44,7 @@ const PageLayout = ({
     enableInsertModal: false,
     enableUpdateModal: false,
   });
-  
+
   useEffect(() => {
     // Fetching data throw axios
     let fetchURL = URL + `?page=${page}&search=${search}`;
@@ -98,12 +104,17 @@ const PageLayout = ({
     });
   };
 
+  let isCreationAllowed = permissions.includes(createKey);
+  let isViewAllowed = permissions.includes(viewKey);
+  let isEditAllowed = permissions.includes(editKey);
+  let isDeleteAllowed = permissions.includes(deleteKey);
+
   return (
     <React.Fragment>
       <div className="m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl">
         <Header category="Page" title={title} />
         {isLoading && <Splash />}
-        {!isLoading && (
+        {!isLoading && isViewAllowed && (
           <>
             <TableGrid
               dataSource={dataList}
@@ -117,6 +128,9 @@ const PageLayout = ({
               focusedId={focusedId}
               setFocusedId={setFocusedId}
               moreDataKey={moreDataKey}
+              isCreationAllowed={isCreationAllowed}
+              isEditAllowed={isEditAllowed}
+              isDeleteAllowed={isDeleteAllowed}
             />
             <Pagination {...collections} setPage={setPage} page={page} />
           </>
